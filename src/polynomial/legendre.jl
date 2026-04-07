@@ -28,7 +28,6 @@ gausspoints(t, onb) = sort([t; extremal_roots(t, onb)])
 
 function legendre_principal_reps(n::Int)
     m = PolynomialDegree(n >> 1)
-    @show m
     if iseven(n)
         Qlower = Jacobi(m, 0, 1)
         Qupper = Jacobi(m, 1, 0)
