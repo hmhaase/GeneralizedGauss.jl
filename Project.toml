@@ -1,21 +1,21 @@
 name = "GeneralizedGauss"
 uuid = "05e31603-d96d-5828-bb71-68ab99de2396"
 authors = ["Daan <daan.huybrechs@kuleuven.be>"]
-version = "0.0.2"
+version = "0.0.3"
 
 [deps]
 BasisFunctions = "4343a256-5453-507d-8aad-01a9d7189916"
 DomainSets = "5b8099bc-c8ec-5219-889f-1d9e522a28bf"
 FunctionMaps = "a85aefff-f8ca-4649-a888-c8e5398bc76c"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-NLsolve = "2774e3e8-f4cf-5e23-947b-6d7e65073b56"
+SimpleNonlinearSolve = "727e6d20-b764-4bd8-a329-72de5adea6c7"
 
 [compat]
 BasisFunctions = "0.7"
 DomainSets = "0.7.18,0.8"
 FunctionMaps = "0.1.2"
 LinearAlgebra = "1"
-NLsolve = "4.5.1"
+SimpleNonlinearSolve = "2"
 julia = "1.10"
 
 [extras]

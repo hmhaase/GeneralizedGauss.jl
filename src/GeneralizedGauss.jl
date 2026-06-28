@@ -1,6 +1,6 @@
 module GeneralizedGauss
 
-using BasisFunctions, LinearAlgebra, NLsolve
+using BasisFunctions, LinearAlgebra, SimpleNonlinearSolve
 
 import BasisFunctions: moment
 

@@ -23,13 +23,23 @@ end
 
 function solve_system(rule, w0, x0; verbose=false, options...)
     x_init = quad_to_newton(rule, w0, x0)
-    F!(Fx, x) = residual!(Fx, rule, x)
-    J!(Jx, x) = jacobian!(Jx, rule, x)
+    F!(Fx, x, p) = residual!(Fx, rule, x)
+    J!(Jx, x, p) = jacobian!(Jx, rule, x)
 
     tol = solver_tolerance(eltype(x_init))
-    r = nlsolve(F!, J!, x_init; ftol = tol, options...)
-    w, x = newton_to_quad(rule, r.zero)
-    converged(r), w, x
+    nf = NonlinearFunction(F!; jac = J!)
+    prob = NonlinearProblem(nf, x_init)
+    # SimpleTrustRegion mirrors NLsolve's default trust-region method. A singular
+    # Jacobian in the step solve still throws from `\`; treat it as non-convergence
+    # so infeasible canonical points fail gracefully, as NLsolve did.
+    sol = try
+        solve(prob, SimpleTrustRegion(); abstol = tol)
+    catch e
+        e isa SingularException || rethrow()
+        return false, w0, x0
+    end
+    w, x = newton_to_quad(rule, sol.u)
+    SciMLBase.successful_retcode(sol), w, x
 end
 
 function supportleft(dict)
